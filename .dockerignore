@@ -1,0 +1,16 @@
+target/
+node_modules/
+.vscode/
+.git/
+.gitignore
+*.log
+*.tmp
+src/test/
+**/*.iml
+**/.idea/
+.env
+.env.*
+.DS_Store
+**/application-*.properties
+src/main/resources/application.properties
+cloudbucket-uploads/
