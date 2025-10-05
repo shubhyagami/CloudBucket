@@ -95,3 +95,40 @@ Troubleshooting
 License & credits
 
 This is sample/demo code. Adapt it as needed for your project and apply appropriate security, storage, and operational hardening before production use.
+
+Deploy to Render
+-----------------
+
+This project includes a `Dockerfile` so it can be deployed to Render as a Docker web service (recommended). There are two easy options:
+
+1) Docker (recommended)
+
+- Render will build the image using the included `Dockerfile` (multi-stage build). The Dockerfile runs the Maven build inside a Maven/JDK image and then packages the app into a lightweight JRE image.
+- When creating the Render service, choose `Docker` for the environment so Render uses the Dockerfile. No Start Command is required (the Dockerfile's CMD will be used).
+
+2) Native Render Web Service (no Docker)
+
+- If you prefer Render to build the project, use the following settings in the Render Web Service configuration:
+	- Build Command: `./mvnw -DskipTests package`
+	- Start Command: `java -Dserver.port=$PORT -jar target/*.jar`
+- Important: `mvnw` must be executable on the Linux build image. I fixed this by setting the executable bit in the repo (`git update-index --chmod=+x mvnw`).
+
+Notes & tips
+
+- `server.port` binding: start command above uses `-Dserver.port=$PORT` so your app listens on the Render-provided port. You can also add `server.port=${PORT:8080}` to `src/main/resources/application.properties` as a fallback.
+- `application.properties` is included in the Docker build. If you use the Docker option, uploaded files saved to `file.upload-dir` are stored in the container filesystem and may be lost on redeploy — use S3 or Render persistent disks for production storage.
+- If builds fail on Render with `Permission denied` or `JAVA_HOME` errors, prefer Docker or check the build image configuration.
+
+Quick checklist before deploying
+
+1. Ensure `mvnw` is executable (commit pushed) — already done in this repo.
+2. Ensure `application.properties` is present in the repo (not excluded by `.dockerignore`) — fixed.
+3. Push your changes to GitHub and create a new Render Web Service pointing at this repository.
+
+Troubleshooting Render
+
+- Check Render build and live logs for errors. Common failures and solutions:
+	- `./mvnw: Permission denied` → make `mvnw` executable (done).
+	- `The JAVA_HOME environment variable is not defined correctly` → use Docker or set JAVA_HOME in Render build environment (less reliable than Docker).
+	- `Could not resolve placeholder 'file.upload-dir'` → ensure `application.properties` or required env vars are present.
+
