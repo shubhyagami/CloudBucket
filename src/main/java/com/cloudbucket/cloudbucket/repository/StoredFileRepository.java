@@ -9,3 +9,5 @@ import java.util.List;
 public interface StoredFileRepository extends JpaRepository<StoredFile, Long> {
     List<StoredFile> findAllByOwner(User owner);
 }
+
+// sync @ 2026-06-14T02:17:31.830912
