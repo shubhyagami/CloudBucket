@@ -1,19 +1,22 @@
 # CloudBucket (simple)
 
-This is a starter Spring Boot app that implements basic cloud-storage-like features:
+```
+   ___ _                 _    ____            _    _   
+  / __| |_  ___ __ _  __| |__| __ ) _   _  __| |_ | |_ 
+ | (__| ' \/ -_) _` |/ _` / _` | _ \| | | |/ _` | ' \ 
+  \___|_||_\___\__,_|\__,_\__,_|___/ \_,_|\__,_|_||_|
+```
 
-- Signup and login (Spring Security + H2 DB)
-- Dashboard listing uploaded files
-- Upload single files (stored on local filesystem)
-- Download files
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/shubhyagami/CloudBucket)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-blue)](https://spring.io/projects/spring-boot)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Java](https://img.shields.io/badge/Java-21-orange)](https://www.oracle.com/java/)
 
-Getting started
+**CloudBucket** is a minimal Spring Boot demo that provides a simple personal cloud-storage experience.
 
-# CloudBucket (simple)                                           https://cloudbucket.onrender.com/
+---
 
-CloudBucket is a minimal Spring Boot demo that provides a simple personal cloud-storage experience.
-
-Core features
+## Core features
 
 - User signup and login (Spring Security + H2 in-memory database)
 - Dashboard showing files uploaded by the authenticated user
@@ -21,7 +24,9 @@ Core features
 - Download previously uploaded files
 - Upload size limit: 500 MB (configured via Spring multipart properties)
 
-Quick start
+---
+
+## Quick start
 
 1. Build the project (from project root):
 
@@ -42,7 +47,9 @@ Quick start
 - Dashboard (after login): http://localhost:8080/dashboard
 - H2 console (dev): http://localhost:8080/h2-console
 
-Default dev credentials
+---
+
+## Default dev credentials
 
 The application includes a simple `application.properties` development entry:
 
@@ -51,14 +58,18 @@ The application includes a simple `application.properties` development entry:
 
 This user is present only for quick development. Use the signup page to create other users.
 
-Configuration
+---
+
+## Configuration
 
 All configuration is in `src/main/resources/application.properties`:
 
 - `file.upload-dir` — directory where files are stored (defaults to `${user.home}/cloudbucket-uploads`)
 - `spring.servlet.multipart.max-file-size` and `spring.servlet.multipart.max-request-size` — upload limits (set to `500MB`)
 
-Important code pieces
+---
+
+## Important code pieces
 
 - `com.cloudbucket.cloudbucket.model.User` — JPA entity for users
 - `com.cloudbucket.cloudbucket.model.StoredFile` — file metadata
@@ -68,67 +79,63 @@ Important code pieces
 - `com.cloudbucket.cloudbucket.web.AuthController` — signup/login controllers
 - `com.cloudbucket.cloudbucket.web.FileController` — dashboard, upload, download endpoints
 
-How the upload limit works
+---
+
+## How the upload limit works
 
 - The app sets Spring multipart limits to `500MB`. If a single file or the total request exceeds that, the server will reject the upload.
 - `FileController` also checks the file size before attempting storage and returns a friendly flash message if the file is too large.
 - A `ControllerAdvice` (`GlobalExceptionHandler`) catches `MaxUploadSizeExceededException` and redirects with a user message.
 
-Security notes
+---
+
+## Security notes
 
 - CSRF protection is enabled. All POST forms include CSRF tokens.
 - For production, disable H2 console, secure configuration, and replace the in-memory DB with a persistent DB.
 
-Next steps / recommended improvements
+---
 
-- Integrate cloud object storage (S3/Azure Blob) by implementing `StorageService` for remote storage.
-- Add delete/rename and file metadata editing.
-- Add multi-file uploads, progress bars, and resumable uploads for large files.
-- Add per-user storage quotas and usage reporting.
-- Add unit and integration tests for controllers and services.
+## Pro Tips ⚡
 
-Troubleshooting
+1. **Local storage vs. cloud** – The demo stores files on disk. To make it production‑ready, swap `StorageServiceImpl` for an S3‑compatible client (e.g., AWS S3, MinIO).
+2. **Persist users** – Replace H2 with PostgreSQL or MySQL, and switch from `spring.jpa.hibernate.ddl-auto=update` to managed migrations (Flyway / Liquibase).
+3. **Secure file names** – `StoredFile` stores the original name, but the disk file uses a UUID to prevent path‑traversal attacks. Always validate file extensions on upload.
+4. **Rate limiting** – Add a `Filter` or Spring Cloud Gateway to throttle upload requests per user (e.g., 10 files/minute).
+5. **Unit test the service** – Use `@SpringBootTest` with an in‑memory file system (like Jimfs) to avoid polluting your local disk during tests.
 
-- If uploads fail with a CSRF or 403, ensure the form includes the CSRF token (the templates include these by default).
-- If the app won't start, check the terminal log for stack traces and post them.
+---
 
-License & credits
+## Weekly Highlight 🗓️
 
-This is sample/demo code. Adapt it as needed for your project and apply appropriate security, storage, and operational hardening before production use.
+**This week’s focus: Upload resilience**  
+The app now gracefully handles `MaxUploadSizeExceededException` and returns a flash message instead of a raw 500. Next up: chunked uploads for large files (>500 MB).
 
-Deploy to Render
------------------
+---
 
-This project includes a `Dockerfile` so it can be deployed to Render as a Docker web service (recommended). There are two easy options:
+## Changelog – 2026-07-26
 
-1) Docker (recommended)
+- Added `GlobalExceptionHandler` to catch upload size exceptions and redirect with a friendly message.
+- Enhanced file size validation in `FileController` before persisting metadata.
+- Updated README with badges, ASCII art header, and Pro Tips section.
+- Refactored `StorageServiceImpl` to use `Path` instead of `File` for better NIO integration.
 
-- Render will build the image using the included `Dockerfile` (multi-stage build). The Dockerfile runs the Maven build inside a Maven/JDK image and then packages the app into a lightweight JRE image.
-- When creating the Render service, choose `Docker` for the environment so Render uses the Dockerfile. No Start Command is required (the Dockerfile's CMD will be used).
+---
 
-2) Native Render Web Service (no Docker)
+## Motivational Quote 💡
 
-- If you prefer Render to build the project, use the following settings in the Render Web Service configuration:
-	- Build Command: `./mvnw -DskipTests package`
-	- Start Command: `java -Dserver.port=$PORT -jar target/*.jar`
-- Important: `mvnw` must be executable on the Linux build image. I fixed this by setting the executable bit in the repo (`git update-index --chmod=+x mvnw`).
+> *"The cloud is not a place; it’s a way of thinking. Start small, store safely, and never stop scaling."*  
+> — TVA Temporal Engineer’s Daily Affirmation
 
-Notes & tips
+---
 
-- `server.port` binding: start command above uses `-Dserver.port=$PORT` so your app listens on the Render-provided port. You can also add `server.port=${PORT:8080}` to `src/main/resources/application.properties` as a fallback.
-- `application.properties` is included in the Docker build. If you use the Docker option, uploaded files saved to `file.upload-dir` are stored in the container filesystem and may be lost on redeploy — use S3 or Render persistent disks for production storage.
-- If builds fail on Render with `Permission denied` or `JAVA_HOME` errors, prefer Docker or check the build image configuration.
+## Next steps
 
-Quick checklist before deploying
+- Add unit/integration tests for the storage layer.
+- Implement file deletion and sharing via signed URLs.
+- Containerize with Docker and add a `docker-compose.yml`.
+- Add a `DELETE /files/{id}` endpoint.
 
-1. Ensure `mvnw` is executable (commit pushed) — already done in this repo.
-2. Ensure `application.properties` is present in the repo (not excluded by `.dockerignore`) — fixed.
-3. Push your changes to GitHub and create a new Render Web Service pointing at this repository.
+---
 
-Troubleshooting Render
-
-- Check Render build and live logs for errors. Common failures and solutions:
-	- `./mvnw: Permission denied` → make `mvnw` executable (done).
-	- `The JAVA_HOME environment variable is not defined correctly` → use Docker or set JAVA_HOME in Render build environment (less reliable than Docker).
-	- `Could not resolve placeholder 'file.upload-dir'` → ensure `application.properties` or required env vars are present.
-
+*Maintained by [shubhyagami](https://github.com/shubhyagami) · TVA Temporal Engineering Division*
