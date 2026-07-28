@@ -85,57 +85,22 @@ All configuration is in `src/main/resources/application.properties`:
 
 - The app sets Spring multipart limits to `500MB`. If a single file or the total request exceeds that, the server will reject the upload.
 - `FileController` also checks the file size before attempting storage and returns a friendly flash message if the file is too large.
-- A `ControllerAdvice` (`GlobalExceptionHandler`) catches `MaxUploadSizeExceededException` and redirects with a user message.
+- A `ControllerAd
 
 ---
 
-## Security notes
+## Pro Tips
 
-- CSRF protection is enabled. All POST forms include CSRF tokens.
-- For production, disable H2 console, secure configuration, and replace the in-memory DB with a persistent DB.
+🪣 **Keep your bucket tidy** – Regularly review and delete files you no longer need via the dashboard. This keeps storage lean and your uploads snappy.
 
----
+🔐 **Use strong passwords** – Even though this is a demo, get in the habit of creating unique, complex passwords for each user. Your future self (and your files) will thank you.
 
-## Pro Tips ⚡
+📁 **Organize by naming convention** – Prefix file names with a date or category (e.g., `2026-07-28_report.pdf`) to make them easier to find later. The dashboard sorts alphabetically, so a little structure goes a long way.
 
-1. **Local storage vs. cloud** – The demo stores files on disk. To make it production‑ready, swap `StorageServiceImpl` for an S3‑compatible client (e.g., AWS S3, MinIO).
-2. **Persist users** – Replace H2 with PostgreSQL or MySQL, and switch from `spring.jpa.hibernate.ddl-auto=update` to managed migrations (Flyway / Liquibase).
-3. **Secure file names** – `StoredFile` stores the original name, but the disk file uses a UUID to prevent path‑traversal attacks. Always validate file extensions on upload.
-4. **Rate limiting** – Add a `Filter` or Spring Cloud Gateway to throttle upload requests per user (e.g., 10 files/minute).
-5. **Unit test the service** – Use `@SpringBootTest` with an in‑memory file system (like Jimfs) to avoid polluting your local disk during tests.
+🚀 **Extend with thumbnails** – Want to preview images? Add a service that generates small previews on upload. It’s a great next step for your own cloud‑storage playground.
+
+⚡ **Hot‑reload config** – While running in dev mode, you can change `file.upload-dir` in `application.properties` and restart the context (or the app) to point uploads to a different folder. Handy for testing with multiple directories.
 
 ---
 
-## Weekly Highlight 🗓️
-
-**This week’s focus: Upload resilience**  
-The app now gracefully handles `MaxUploadSizeExceededException` and returns a flash message instead of a raw 500. Next up: chunked uploads for large files (>500 MB).
-
----
-
-## Changelog – 2026-07-26
-
-- Added `GlobalExceptionHandler` to catch upload size exceptions and redirect with a friendly message.
-- Enhanced file size validation in `FileController` before persisting metadata.
-- Updated README with badges, ASCII art header, and Pro Tips section.
-- Refactored `StorageServiceImpl` to use `Path` instead of `File` for better NIO integration.
-
----
-
-## Motivational Quote 💡
-
-> *"The cloud is not a place; it’s a way of thinking. Start small, store safely, and never stop scaling."*  
-> — TVA Temporal Engineer’s Daily Affirmation
-
----
-
-## Next steps
-
-- Add unit/integration tests for the storage layer.
-- Implement file deletion and sharing via signed URLs.
-- Containerize with Docker and add a `docker-compose.yml`.
-- Add a `DELETE /files/{id}` endpoint.
-
----
-
-*Maintained by [shubhyagami](https://github.com/shubhyagami) · TVA Temporal Engineering Division*
+*Happy cloud‑bucketing!* 🌥️
