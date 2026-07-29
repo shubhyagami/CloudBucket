@@ -87,20 +87,10 @@ All configuration is in `src/main/resources/application.properties`:
 - `FileController` also checks the file size before attempting storage and returns a friendly flash message if the file is too large.
 - A `ControllerAd
 
----
-
 ## Pro Tips
 
-🪣 **Keep your bucket tidy** – Regularly review and delete files you no longer need via the dashboard. This keeps storage lean and your uploads snappy.
-
-🔐 **Use strong passwords** – Even though this is a demo, get in the habit of creating unique, complex passwords for each user. Your future self (and your files) will thank you.
-
-📁 **Organize by naming convention** – Prefix file names with a date or category (e.g., `2026-07-28_report.pdf`) to make them easier to find later. The dashboard sorts alphabetically, so a little structure goes a long way.
-
-🚀 **Extend with thumbnails** – Want to preview images? Add a service that generates small previews on upload. It’s a great next step for your own cloud‑storage playground.
-
-⚡ **Hot‑reload config** – While running in dev mode, you can change `file.upload-dir` in `application.properties` and restart the context (or the app) to point uploads to a different folder. Handy for testing with multiple directories.
-
----
-
-*Happy cloud‑bucketing!* 🌥️
+- **Use meaningful filenames** – CloudBucket preserves original filenames. Name your files descriptively to easily find them later on the dashboard.
+- **Maximize upload limits** – The default 500 MB limit can be increased by editing `spring.servlet.multipart.max-file-size` and `max-request-size` in `application.properties`. Be mindful of disk space.
+- **Security first** – The default `admin/admin` credentials are for development only. Always create unique users via signup and consider enabling HTTPS in production.
+- **Monitor H2 console** – Use the H2 console at `/h2-console` (dev only) to inspect database tables – great for debugging file metadata or user records.
+- **Extend with cloud storage** – The current implementation stores files locally. For a production cloud storage service, swap `StorageServiceImpl` with an S3 or Azure Blob Storage adapter.
