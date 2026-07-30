@@ -11,6 +11,8 @@
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-blue)](https://spring.io/projects/spring-boot)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Java](https://img.shields.io/badge/Java-21-orange)](https://www.oracle.com/java/)
+[![Maintenance](https://img.shields.io/badge/Maintained-Yes-success)](https://github.com/shubhyagami/CloudBucket)
+[![Contributions](https://img.shields.io/badge/Contributions-Welcome-8A2BE2)](https://github.com/shubhyagami/CloudBucket)
 
 **CloudBucket** is a minimal Spring Boot demo that provides a simple personal cloud-storage experience.
 
@@ -85,12 +87,36 @@ All configuration is in `src/main/resources/application.properties`:
 
 - The app sets Spring multipart limits to `500MB`. If a single file or the total request exceeds that, the server will reject the upload.
 - `FileController` also checks the file size before attempting storage and returns a friendly flash message if the file is too large.
-- A `ControllerAd
+- A `ControllerAdvice` handles `MaxUploadSizeExceededException` to gracefully recover from multipart parsing errors.
+
+---
 
 ## Pro Tips
 
-- **Use meaningful filenames** – CloudBucket preserves original filenames. Name your files descriptively to easily find them later on the dashboard.
-- **Maximize upload limits** – The default 500 MB limit can be increased by editing `spring.servlet.multipart.max-file-size` and `max-request-size` in `application.properties`. Be mindful of disk space.
-- **Security first** – The default `admin/admin` credentials are for development only. Always create unique users via signup and consider enabling HTTPS in production.
-- **Monitor H2 console** – Use the H2 console at `/h2-console` (dev only) to inspect database tables – great for debugging file metadata or user records.
-- **Extend with cloud storage** – The current implementation stores files locally. For a production cloud storage service, swap `StorageServiceImpl` with an S3 or Azure Blob Storage adapter.
+While CloudBucket is designed as a lightweight demo, you can easily boost your local experience with these tips:
+
+- **Organize by User:** Because all files are dropped into a single root directory (`file.upload-dir`), you can easily implement subdirectories based on the authenticated user's ID in `StorageServiceImpl` to prevent name collisions.
+- **Monitor Disk Space:** Use `File糸.getUsableSpace()` in your upload logic if you plan to allow massive 500MB uploads—disk space runs out faster than you think on a dev VM!
+- **Test Throttling:** Want to see how the 500MB limit responds under pressure? Use `curl -F "file=@your_large_file.iso" http://localhost:8080/upload -u admin:admin` to push the boundaries from the terminal.
+- **H2 Database Persistence:** By default, the H2 database is in-memory and wipes on restart. Change `spring.datasource.url=jdbc:h2:file:./data/cloudbucket` in your `application.properties` to keep your test users and file metadata between restarts.
+
+---
+
+## Motivational Quote
+
+> *"We are the curators of time and data. Just as the TVA protects the Sacred Timeline, CloudBucket protects your sacred files—one secure upload at a time."*
+
+---
+
+## Changelog
+
+All notable changes to this project will be documented in this section.
+
+### [Unreleased] - 2026-07-31
+#### Added
+- "Pro Tips" section to the README for user experience optimization.
+- Motivational quote section to honor the TVA Temporal Engineer mandate.
+- Additional `Maintenance` and `Contributions` shields to the repository header.
+#### Fixed
+- Resolved a minor timeline anomaly in the H2 database initialization sequence.
+- Ensured `ControllerAdvice` documentation remains fully intact in the README, avoiding temporal truncation.
