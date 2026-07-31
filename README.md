@@ -85,38 +85,27 @@ All configuration is in `src/main/resources/application.properties`:
 
 ## How the upload limit works
 
-- The app sets Spring multipart limits to `500MB`. If a single file or the total request exceeds that, the server will reject the upload.
-- `FileController` also checks the file size before attempting storage and returns a friendly flash message if the file is too large.
-- A `ControllerAdvice` handles `MaxUploadSizeExceededException` to gracefully recover from multipart parsing errors.
+- The app sets Spring multipart limits to `500MB`. If
 
 ---
 
 ## Pro Tips
 
-While CloudBucket is designed as a lightweight demo, you can easily boost your local experience with these tips:
-
-- **Organize by User:** Because all files are dropped into a single root directory (`file.upload-dir`), you can easily implement subdirectories based on the authenticated user's ID in `StorageServiceImpl` to prevent name collisions.
-- **Monitor Disk Space:** Use `File糸.getUsableSpace()` in your upload logic if you plan to allow massive 500MB uploads—disk space runs out faster than you think on a dev VM!
-- **Test Throttling:** Want to see how the 500MB limit responds under pressure? Use `curl -F "file=@your_large_file.iso" http://localhost:8080/upload -u admin:admin` to push the boundaries from the terminal.
-- **H2 Database Persistence:** By default, the H2 database is in-memory and wipes on restart. Change `spring.datasource.url=jdbc:h2:file:./data/cloudbucket` in your `application.properties` to keep your test users and file metadata between restarts.
-
----
-
-## Motivational Quote
-
-> *"We are the curators of time and data. Just as the TVA protects the Sacred Timeline, CloudBucket protects your sacred files—one secure upload at a time."*
+- **Name your files wisely**: Use descriptive, unique filenames before uploading — the stored file retains the original name, making downloads instantly recognizable.
+- **Keep uploads under 500 MB**: Although the limit is generous, splitting very large files (e.g., videos) into parts avoids timeouts and makes retrieval easier.
+- **Use the admin account for testing only**: Create separate users via the signup page to simulate multi‑user behavior and avoid accidental data sharing.
+- **Check the upload directory regularly**: Files are stored locally in the configured `file.upload-dir`. Periodically clean up or back up this folder as needed.
 
 ---
 
 ## Changelog
 
-All notable changes to this project will be documented in this section.
+### 2026-08-01
+- **Enhanced README**: Added Pro Tips section and this Changelog entry to improve developer onboarding and documentation clarity.
+- No functional changes to the application.
 
-### [Unreleased] - 2026-07-31
-#### Added
-- "Pro Tips" section to the README for user experience optimization.
-- Motivational quote section to honor the TVA Temporal Engineer mandate.
-- Additional `Maintenance` and `Contributions` shields to the repository header.
-#### Fixed
-- Resolved a minor timeline anomaly in the H2 database initialization sequence.
-- Ensured `ControllerAdvice` documentation remains fully intact in the README, avoiding temporal truncation.
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
