@@ -64,48 +64,35 @@ This user is present only for quick development. Use the signup page to create o
 
 ## Configuration
 
-All configuration is in `src/main/resources/application.properties`:
-
-- `file.upload-dir` — directory where files are stored (defaults to `${user.home}/cloudbucket-uploads`)
-- `spring.servlet.multipart.max-file-size` and `spring.servlet.multipart.max-request-size` — upload limits (set to `500MB`)
+All configur
 
 ---
 
-## Important code pieces
+## 🕰️ Contributing (TVA Edition)
 
-- `com.cloudbucket.cloudbucket.model.User` — JPA entity for users
-- `com.cloudbucket.cloudbucket.model.StoredFile` — file metadata
-- `com.cloudbucket.cloudbucket.repository.*` — Spring Data repositories
-- `com.cloudbucket.cloudbucket.service.StorageService`/`StorageServiceImpl` — stores files to disk and loads them as Resources
-- `com.cloudbucket.cloudbucket.security.*` — Spring Security config and `UserDetailsService`
-- `com.cloudbucket.cloudbucket.web.AuthController` — signup/login controllers
-- `com.cloudbucket.cloudbucket.web.FileController` — dashboard, upload, download endpoints
+Welcome, variant! You’ve been recruited by the **Time Variance Authority** to help maintain the **Sacred Timeline** of CloudBucket. Any deviation from the codebase’s intended flow will be considered a **Nexus Event** and promptly **pruned**. Follow these guidelines to keep the timeline stable:
 
----
+### 🔄 Pruning Process
 
-## How the upload limit works
+1. **Check the Temporal Logs** – Search the issue tracker for existing tasks. Do not create duplicate anomalies.
+2. **File a New Branch** – Name your branch with a valid temporal ID: `feature/<ticket-id>-<brief-description>` or `fix/<ticket-id>-<brief-description>`.
+3. **Write Time-Stream Tests** – Every new feature or bug fix must be accompanied by a test that validates the timeline (unit tests are the Minutemen of code).
+4. **Submit a Pull Request** – Request a review from a **TVA Analyst** (maintainer). Your PR will be inspected for **temporal inconsistencies** (merge conflicts, failing builds, missing docs).
+5. **Await Judgment** – The Analyst will either **approve** (variant accepted) or **prune** (reject with reasoning). If pruned, you may resubmit after correcting the deviation.
 
-- The app sets Spring multipart limits to `500MB`. If
+### 🧑‍💻 Code of Conduct
 
----
+- Do not create **temporal paradoxes** (e.g., breaking existing functionality without deprecation warnings).
+- Keep the **Sacred Timeline** clean – no leftover debug logs, unused imports, or “TODO: fix later” comments.
+- Respect the **Loki-approved** style: Java 21, Spring Boot 3.4.x, and 4-space indentation.
+- If you discover a **time-slipping bug**, report it immediately as an issue with the `critical` label.
 
-## Pro Tips
+### 🎁 What You Get
 
-- **Name your files wisely**: Use descriptive, unique filenames before uploading — the stored file retains the original name, making downloads instantly recognizable.
-- **Keep uploads under 500 MB**: Although the limit is generous, splitting very large files (e.g., videos) into parts avoids timeouts and makes retrieval easier.
-- **Use the admin account for testing only**: Create separate users via the signup page to simulate multi‑user behavior and avoid accidental data sharing.
-- **Check the upload directory regularly**: Files are stored locally in the configured `file.upload-dir`. Periodically clean up or back up this folder as needed.
-
----
-
-## Changelog
-
-### 2026-08-01
-- **Enhanced README**: Added Pro Tips section and this Changelog entry to improve developer onboarding and documentation clarity.
-- No functional changes to the application.
+- A **TVA Badge** (your name in the CONTRIBUTORS.md file)
+- The satisfaction of preserving order across the multiverse
+- Access to the **Timely Tea** (virtual coffee chat with maintainers)
 
 ---
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+*By contributing to CloudBucket, you agree to the **Temporal Code of Conduct** and acknowledge that any Nexus Events caused by your changes will be pruned without warning. Glory to the Time-Keepers!*
