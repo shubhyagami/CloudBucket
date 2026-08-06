@@ -1,4 +1,4 @@
-# CloudBucket (simple)
+# CloudBucket
 
 ```
    ___ _                 _    ____            _    _   
@@ -15,6 +15,8 @@
 [![Contributions](https://img.shields.io/badge/Contributions-Welcome-8A2BE2)](https://github.com/shubhyagami/CloudBucket)
 
 **CloudBucket** is a minimal Spring Boot demo that provides a simple personal cloud-storage experience.
+
+> *"For all time. Always."* — The Time-Keepers would be pleased to know your files are securely stored along the Sacred Timeline.
 
 ---
 
@@ -64,7 +66,7 @@ This user is present only for quick development. Use the signup page to create o
 
 ## Configuration
 
-All configur
+All configuration is managed through `application.properties`. You can customize the file upload directory by setting the `file.upload-dir` property to your desired local path.
 
 ---
 
@@ -96,6 +98,7 @@ Welcome, variant! You’ve been recruited by the **Time Variance Authority** to 
 ---
 
 *By contributing to CloudBucket, you agree to the **Temporal Code of Conduct** and acknowledge that any Nexus Events caused by your changes will be pruned without warning. Glory to the Time-Keepers!*
+
 ---
 
 ### Temporal Update
@@ -113,3 +116,9 @@ Auto-maintained entry for 2026-08-06 23:59 (CloudBucket).
 ### Temporal Update
 
 Auto-maintained entry for 2026-08-07 00:02 (CloudBucket).
+
+---
+
+### Temporal Update
+
+Auto-maintained entry for 2026-08-07 08:00 (CloudBucket). Sacred Timeline scan complete. No Nexus events detected. README syntax stabilized for variants across all branching timelines.
