@@ -9,116 +9,68 @@
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/shubhyagami/CloudBucket)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-blue)](https://spring.io/projects/spring-boot)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Java](https://img.shields.io/badge/Java-21-orange)](https://www.oracle.com/java/)
-[![Maintenance](https://img.shields.io/badge/Maintained-Yes-success)](https://github.com/shubhyagami/CloudBucket)
-[![Contributions](https://img.shields.io/badge/Contributions-Welcome-8A2BE2)](https://github.com/shubhyagami/CloudBucket)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Maintained](https://img.shields.io/badge/Maintained-Yes-success)](https://github.com/shubhyagami/CloudBucket)
 
-**CloudBucket** is a minimal Spring Boot demo that provides a simple personal cloud-storage experience.
+**CloudBucket** is a minimal Spring Boot application that provides a simple personal cloud storage experience. It demonstrates core web development concepts including user authentication, file uploads, and database management.
 
-> *"For all time. Always."* — The Time-Keepers would be pleased to know your files are securely stored along the Sacred Timeline.
+## Features
 
----
+- **User Authentication:** Secure signup and login powered by Spring Security.
+- **User Dashboard:** An isolated view showing only the files uploaded by the authenticated user.
+- **File Management:** Upload single files (up to 500 MB) and download previously uploaded files.
+- **Local Storage:** Files are saved to a configurable local directory.
+- **In-Memory Database:** H2 database for easy setup and development.
 
-## Core features
+## Getting Started
 
-- User signup and login (Spring Security + H2 in-memory database)
-- Dashboard showing files uploaded by the authenticated user
-- Upload single files (stored to a local directory configured by `file.upload-dir`)
-- Download previously uploaded files
-- Upload size limit: 500 MB (configured via Spring multipart properties)
+### Prerequisites
 
----
+- Java 21
+- Maven (wrapper is included)
 
-## Quick start
+### Build & Run
 
-1. Build the project (from project root):
-
-```powershell
-./mvnw -DskipTests package
-```
-
-2. Run the app:
-
-```powershell
-./mvnw spring-boot:run
-```
-
-3. Open the app in your browser:
-
-- Signup: http://localhost:8080/signup
-- Login:  http://localhost:8080/login
-- Dashboard (after login): http://localhost:8080/dashboard
-- H2 console (dev): http://localhost:8080/h2-console
-
----
-
-## Default dev credentials
-
-The application includes a simple `application.properties` development entry:
-
-- username: `admin`
-- password: `admin`
-
-This user is present only for quick development. Use the signup page to create other users.
-
----
+1. Build the project from the root directory:
+   ```bash
+   ./mvnw -DskipTests package
+   ```
+2. Run the application:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+3. Open the application in your browser:
+   - **Signup:** http://localhost:8080/signup
+   - **Login:** http://localhost:8080/login
+   - **Dashboard:** http://localhost:8080/dashboard
+   - **H2 Console:** http://localhost:8080/h2-console
 
 ## Configuration
 
-All configuration is managed through `application.properties`. You can customize the file upload directory by setting the `file.upload-dir` property to your desired local path.
+All application settings are managed in `src/main/resources/application.properties`.
 
----
+### Default Credentials
+A default development user is provided for quick testing:
+- **Username:** `admin`
+- **Password:** `admin`
 
-## 🕰️ Contributing (TVA Edition)
+To create additional users, please use the signup page.
 
-Welcome, variant! You’ve been recruited by the **Time Variance Authority** to help maintain the **Sacred Timeline** of CloudBucket. Any deviation from the codebase’s intended flow will be considered a **Nexus Event** and promptly **pruned**. Follow these guidelines to keep the timeline stable:
+### File Upload Directory
+You can customize the local storage path for uploaded files by modifying the `file.upload-dir` property in `application.properties`.
 
-### 🔄 Pruning Process
+## Contributing
 
-1. **Check the Temporal Logs** – Search the issue tracker for existing tasks. Do not create duplicate anomalies.
-2. **File a New Branch** – Name your branch with a valid temporal ID: `feature/<ticket-id>-<brief-description>` or `fix/<ticket-id>-<brief-description>`.
-3. **Write Time-Stream Tests** – Every new feature or bug fix must be accompanied by a test that validates the timeline (unit tests are the Minutemen of code).
-4. **Submit a Pull Request** – Request a review from a **TVA Analyst** (maintainer). Your PR will be inspected for **temporal inconsistencies** (merge conflicts, failing builds, missing docs).
-5. **Await Judgment** – The Analyst will either **approve** (variant accepted) or **prune** (reject with reasoning). If pruned, you may resubmit after correcting the deviation.
+Contributions are welcome! To keep the project clean and maintainable, please follow these guidelines:
 
-### 🧑‍💻 Code of Conduct
+1. **Check existing issues:** Search the issue tracker to avoid duplicate submissions.
+2. **Branching:** Create a descriptive branch (e.g., `feature/add-file-preview` or `fix/login-redirect`).
+3. **Testing:** Ensure all new features or bug fixes include appropriate unit tests.
+4. **Pull Requests:** Submit a PR for review. Please ensure your code follows the existing style (Java 21, Spring Boot 3.4.x, 4-space indentation) and includes no leftover debug logs or unused imports.
 
-- Do not create **temporal paradoxes** (e.g., breaking existing functionality without deprecation warnings).
-- Keep the **Sacred Timeline** clean – no leftover debug logs, unused imports, or “TODO: fix later” comments.
-- Respect the **Loki-approved** style: Java 21, Spring Boot 3.4.x, and 4-space indentation.
-- If you discover a **time-slipping bug**, report it immediately as an issue with the `critical` label.
+Contributors will be recognized in the `CONTRIBUTORS.md` file.
 
-### 🎁 What You Get
+## License
 
-- A **TVA Badge** (your name in the CONTRIBUTORS.md file)
-- The satisfaction of preserving order across the multiverse
-- Access to the **Timely Tea** (virtual coffee chat with maintainers)
-
----
-
-*By contributing to CloudBucket, you agree to the **Temporal Code of Conduct** and acknowledge that any Nexus Events caused by your changes will be pruned without warning. Glory to the Time-Keepers!*
-
----
-
-### Temporal Update
-
-Auto-maintained entry for 2026-08-06 23:58 (CloudBucket).
-
----
-
-### Temporal Update
-
-Auto-maintained entry for 2026-08-06 23:59 (CloudBucket).
-
----
-
-### Temporal Update
-
-Auto-maintained entry for 2026-08-07 00:02 (CloudBucket).
-
----
-
-### Temporal Update
-
-Auto-maintained entry for 2026-08-07 08:00 (CloudBucket). Sacred Timeline scan complete. No Nexus events detected. README syntax stabilized for variants across all branching timelines.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
