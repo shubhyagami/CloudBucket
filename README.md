@@ -13,22 +13,19 @@
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Maintained](https://img.shields.io/badge/Maintained-Yes-success)](https://github.com/shubhyagami/CloudBucket)
 
-**CloudBucket** is a minimal Spring Boot application that provides a simple personal cloud storage experience. It demonstrates core web development concepts including user authentication, file uploads, and database management.
+**CloudBucket** is a minimal Spring Boot application that simulates a personal cloud storage experience. It serves as a practical reference for core web development concepts, featuring user authentication, file management, and database integration.
 
 ## Features
 
-- **User Authentication:** Secure signup and login powered by Spring Security.
-- **User Dashboard:** An isolated view showing only the files uploaded by the authenticated user.
-- **File Management:** Upload single files (up to 500 MB) and download previously uploaded files.
-- **Local Storage:** Files are saved to a configurable local directory.
-- **In-Memory Database:** H2 database for easy setup and development.
+- **User Authentication:** Secure signup and login flows powered by Spring Security.
+- **User Dashboard:** An isolated workspace where users only see and manage the files they have uploaded.
+- **File Management:** Upload files up to 500 MB and download previously uploaded files.
+- **Configurable Local Storage:** Uploaded files are saved to a local directory that you can easily specify.
+- **In-Memory Database:** Powered by H2, making setup and development effortless.
 
 ## Getting Started
 
-### Prerequisites
-
-- Java 21
-- Maven (wrapper is included)
+To get a local copy up and running, you only need Java 21 and Maven (the project includes a Maven wrapper).
 
 ### Build & Run
 
@@ -41,10 +38,10 @@
    ./mvnw spring-boot:run
    ```
 3. Open the application in your browser:
-   - **Signup:** http://localhost:8080/signup
-   - **Login:** http://localhost:8080/login
-   - **Dashboard:** http://localhost:8080/dashboard
-   - **H2 Console:** http://localhost:8080/h2-console
+   - **Signup:** `http://localhost:8080/signup`
+   - **Login:** `http://localhost:8080/login`
+   - **Dashboard:** `http://localhost:8080/dashboard`
+   - **H2 Console:** `http://localhost:8080/h2-console`
 
 ## Configuration
 
@@ -55,10 +52,21 @@ A default development user is provided for quick testing:
 - **Username:** `admin`
 - **Password:** `admin`
 
-To create additional users, please use the signup page.
+To create additional users, please use the signup page. 
 
 ### File Upload Directory
 You can customize the local storage path for uploaded files by modifying the `file.upload-dir` property in `application.properties`.
+
+## Changelog
+
+### [Unreleased]
+- README cleanup and structural improvements.
+- Updated Spring Boot to 3.4.1.
+
+### [1.0.0] - Initial Release
+- Implemented secure user authentication.
+- Added user-specific dashboard and isolated file storage.
+- Integrated H2 database for local development.
 
 ## Contributing
 
@@ -67,7 +75,7 @@ Contributions are welcome! To keep the project clean and maintainable, please fo
 1. **Check existing issues:** Search the issue tracker to avoid duplicate submissions.
 2. **Branching:** Create a descriptive branch (e.g., `feature/add-file-preview` or `fix/login-redirect`).
 3. **Testing:** Ensure all new features or bug fixes include appropriate unit tests.
-4. **Pull Requests:** Submit a PR for review. Please ensure your code follows the existing style (Java 21, Spring Boot 3.4.x, 4-space indentation) and includes no leftover debug logs or unused imports.
+4. **Pull Requests:** Submit a PR for review. Ensure your code follows the existing style (Java 21, Spring Boot 3.4.x, 4-space indentation) and includes no leftover debug logs or unused imports.
 
 Contributors will be recognized in the `CONTRIBUTORS.md` file.
 
