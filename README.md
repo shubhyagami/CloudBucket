@@ -13,14 +13,14 @@
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Maintained](https://img.shields.io/badge/Maintained-Yes-success)](https://github.com/shubhyagami/CloudBucket)
 
-**CloudBucket** is a minimal Spring Boot application that simulates a personal cloud storage experience. It serves as a practical reference for core web development concepts, featuring user authentication, file management, and database integration.
+CloudBucket is a minimal Spring Boot application that simulates a personal cloud storage experience. It serves as a practical reference for core web development concepts, featuring user authentication, file management, and database integration.
 
 ## Features
 
-- **User Authentication:** Secure signup and login flows powered by Spring Security.
-- **User Dashboard:** An isolated workspace where users only see and manage the files they have uploaded.
+- **Authentication:** Secure signup and login flows powered by Spring Security.
+- **User Dashboard:** An isolated workspace where users only see and manage their own uploaded files.
 - **File Management:** Upload files up to 500 MB and download previously uploaded files.
-- **Configurable Local Storage:** Uploaded files are saved to a local directory that you can easily specify.
+- **Configurable Local Storage:** Uploaded files are saved to a local directory that you can specify.
 - **In-Memory Database:** Powered by H2, making setup and development effortless.
 
 ## Getting Started
@@ -48,25 +48,25 @@ To get a local copy up and running, you only need Java 21 and Maven (the project
 All application settings are managed in `src/main/resources/application.properties`.
 
 ### Default Credentials
+
 A default development user is provided for quick testing:
 - **Username:** `admin`
 - **Password:** `admin`
 
-To create additional users, please use the signup page. 
+To create additional users, use the signup page. 
 
 ### File Upload Directory
-You can customize the local storage path for uploaded files by modifying the `file.upload-dir` property in `application.properties`.
+
+Customize the local storage path for uploaded files by modifying the `file.upload-dir` property in `application.properties`.
 
 ## Changelog
-
-### [Unreleased]
-- README cleanup and structural improvements.
-- Updated Spring Boot to 3.4.1.
 
 ### [1.0.0] - Initial Release
 - Implemented secure user authentication.
 - Added user-specific dashboard and isolated file storage.
 - Integrated H2 database for local development.
+- Updated Spring Boot to 3.4.1.
+- Refined README structure and documentation.
 
 ## Contributing
 
