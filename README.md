@@ -10,6 +10,7 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/shubhyagami/CloudBucket)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-blue)](https://spring.io/projects/spring-boot)
 [![Java](https://img.shields.io/badge/Java-21-orange)](https://www.oracle.com/java/)
+[![H2 Database](https://img.shields.io/badge/Database-H2-blueviolet)](https://www.h2database.com/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Maintained](https://img.shields.io/badge/Maintained-Yes-success)](https://github.com/shubhyagami/CloudBucket)
 
