@@ -3,14 +3,14 @@
 ```
    ___ _                 _    ____            _    _   
   / __| |_  ___ __ _  __| |__| __ ) _   _  __| |_ | |_ 
- | (__| ' \/ -_) _` |/ _` / _` | _ \| | | |/ _` | ' \ 
+ | (__| ' \/ -_) _` |/ _` / _` | _ \ | | |/ _` | ' \ 
   \___|_||_\___\__,_|\__,_\__,_|___/ \_,_|\__,_|_||_|
 ```
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/shubhyagami/CloudBucket)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-blue)](https://spring.io/projects/spring-boot)
 [![Java](https://img.shields.io/badge/Java-21-orange)](https://www.oracle.com/java/)
-[![H2 Database](https://img.shields.io/badge/Database-H2-blueviolet)](https://www.h2database.com/)
+[![Database](https://img.shields.io/badge/Database-H2-blueviolet)](https://www.h2database.com/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Maintained](https://img.shields.io/badge/Maintained-Yes-success)](https://github.com/shubhyagami/CloudBucket)
 
@@ -21,7 +21,7 @@ CloudBucket is a minimal Spring Boot application that simulates a personal cloud
 - **Authentication:** Secure signup and login flows powered by Spring Security.
 - **User Dashboard:** An isolated workspace where users only see and manage their own uploaded files.
 - **File Management:** Upload files up to 500 MB and download previously uploaded files.
-- **Configurable Local Storage:** Uploaded files are saved to a local directory that you can specify.
+- **Configurable Local Storage:** Uploaded files are saved to a local directory specified in the application properties.
 - **In-Memory Database:** Powered by H2, making setup and development effortless.
 
 ## Getting Started
