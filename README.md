@@ -1,6 +1,6 @@
 # CloudBucket
-
-```
+-------------
+```markdown
    ___ _                 _    ____            _    _   
   / __| |_  ___ __ _  __| |__| __ ) _   _  __| |_ | |_ 
  | (__| ' \/ -_) _` |/ _` / _` | _ \ | | |/ _` | ' \ 
@@ -14,84 +14,64 @@
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Maintained](https://img.shields.io/badge/Maintained-Yes-success)](https://github.com/shubhyagami/CloudBucket)
 
-CloudBucket is a minimal Spring Boot application that simulates a personal cloud storage experience. It serves as a practical reference for core web development concepts, featuring user authentication, file management, and database integration.
+A personal cloud storage experience, simplified using Spring Boot.
 
 ## Features
 
-- **Authentication:** Secure signup and login flows powered by Spring Security.
-- **User Dashboard:** An isolated workspace where users only see and manage their own uploaded files.
-- **File Management:** Upload files up to 500 MB and download previously uploaded files.
-- **Configurable Local Storage:** Uploaded files are saved to a local directory specified in the application properties.
-- **In-Memory Database:** Powered by H2, making setup and development effortless.
+CloudBucket comes equipped with:
+
+- **Secure Authentication**: Protect your data with Spring Security.
+- **User Dashboard**: A secure space for file management, accessible only to each user.
+- **File Management**: Upload and download files up to 500 MB.
+- **Configurable Local Storage**: Save your files locally, with the directory determined by your application properties.
+- **H2 Database**: Get started quickly with an in-memory database for effortless development.
 
 ## Getting Started
 
-To get a local copy up and running, you only need Java 21 and Maven (the project includes a Maven wrapper).
+Start using CloudBucket locally without issues by following the simplified setup instructions below.
 
-### Build & Run
+### Build and Run
 
-1. Build the project from the root directory:
+1. **Build the Project**: From the root directory, use the following command to build the project without running tests:
    ```bash
    ./mvnw -DskipTests package
    ```
-2. Run the application:
+2. **Run the Application**: Execute the command below to start the application:
    ```bash
    ./mvnw spring-boot:run
    ```
-3. Open the application in your browser:
-   - **Signup:** `http://localhost:8080/signup`
-   - **Login:** `http://localhost:8080/login`
-   - **Dashboard:** `http://localhost:8080/dashboard`
-   - **H2 Console:** `http://localhost:8080/h2-console`
+3. **Access the Application**: Visit the following URLs in your browser to begin exploring:
+   - **Signup**: `http://localhost:8080/signup`
+   - **Login**: `http://localhost:8080/login`
+   - **Dashboard**: `http://localhost:8080/dashboard`
+   - **H2 Console**: `http://localhost:8080/h2-console`
 
 ## Configuration
 
-All application settings are managed in `src/main/resources/application.properties`.
+Control and customize your application settings through `src/main/resources/application.properties`.
 
-### Default Credentials
+### Default Development User
 
-A default development user is provided for quick testing:
-- **Username:** `admin`
-- **Password:** `admin`
+A pre-configured development user is provided to save time:
 
-To create additional users, use the signup page. 
+- **Username**: `admin`
+- **Password**: `admin`
+
+For adding custom users, visit the signup page.
 
 ### File Upload Directory
 
-Customize the local storage path for uploaded files by modifying the `file.upload-dir` property in `application.properties`.
-
-## Changelog
-
-### [1.0.0] - Initial Release
-- Implemented secure user authentication.
-- Added user-specific dashboard and isolated file storage.
-- Integrated H2 database for local development.
-- Updated Spring Boot to 3.4.1.
-- Refined README structure and documentation.
+Customize the local file storage directory by modifying the `file.upload-dir` property in `application.properties`.
 
 ## Contributing
 
-Contributions are welcome! To keep the project clean and maintainable, please follow these guidelines:
+If you'd like to help improve or expand CloudBucket, please follow these guidelines:
 
-1. **Check existing issues:** Search the issue tracker to avoid duplicate submissions.
-2. **Branching:** Create a descriptive branch (e.g., `feature/add-file-preview` or `fix/login-redirect`).
-3. **Testing:** Ensure all new features or bug fixes include appropriate unit tests.
-4. **Pull Requests:** Submit a PR for review. Ensure your code follows the existing style (Java 21, Spring Boot 3.4.x, 4-space indentation) and includes no leftover debug logs or unused imports.
-
-Contributors will be recognized in the `CONTRIBUTORS.md` file.
+1. **Check existing issues**: Avoid duplicate submissions by reviewing the issue tracker.
+2. **Branching**: Use descriptive branch names for your code contributions (e.g., `feature/add-file-preview` or `fix/login-redirect`).
+3. **Testing**: Include relevant unit tests for new features or bug fixes.
+4. **Pull Requests**: For code review, submit a pull request with style consistency (Java 21, Spring Boot 3.4.x, 4-space indentation) and minimal debug logs or unused imports.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-### Temporal Update
-
-Auto-maintained entry for 2026-08-24 09:47 (CloudBucket).
-
----
-
-### Temporal Update
-
-Auto-maintained entry for 2026-08-24 09:58 (CloudBucket).
+CloudBucket is distributed under the MIT License. For further details, refer to the `LICENSE` file.
