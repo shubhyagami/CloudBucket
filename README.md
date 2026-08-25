@@ -16,9 +16,11 @@
 
 A personal cloud storage experience, simplified using Spring Boot.
 
-## Features
+## Overview
 
-CloudBucket comes equipped with:
+CloudBucket is a personal cloud storage platform built on top of Spring Boot, designed to provide a secure and user-friendly experience for storing and managing files.
+
+## Features
 
 - **Secure Authentication**: Protect your data with Spring Security.
 - **User Dashboard**: A secure space for file management, accessible only to each user.
@@ -28,15 +30,15 @@ CloudBucket comes equipped with:
 
 ## Getting Started
 
-Start using CloudBucket locally without issues by following the simplified setup instructions below.
+To start using CloudBucket locally, follow these simplified setup instructions.
 
 ### Build and Run
 
-1. **Build the Project**: From the root directory, use the following command to build the project without running tests:
+1. **Build the Project**: From the root directory, use:
    ```bash
    ./mvnw -DskipTests package
    ```
-2. **Run the Application**: Execute the command below to start the application:
+2. **Run the Application**: Execute:
    ```bash
    ./mvnw spring-boot:run
    ```
