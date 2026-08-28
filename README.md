@@ -1,77 +1,76 @@
 # CloudBucket
--------------
-```markdown
-   ___ _                 _    ____            _    _   
-  / __| |_  ___ __ _  __| |__| __ ) _   _  __| |_ | |_ 
- | (__| ' \/ -_) _` |/ _` / _` | _ \ | | |/ _` | ' \ 
-  \___|_||_\___\__,_|\__,_\__,_|___/ \_,_|\__,_|_||_|
-```
+
+A personal cloud storage service built with Spring Boot, offering secure authentication, file upload/download (up to 500 MB), and a lightweight dashboard.
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/shubhyagami/CloudBucket)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-blue)](https://spring.io/projects/spring-boot)
 [![Java](https://img.shields.io/badge/Java-21-orange)](https://www.oracle.com/java/)
 [![Database](https://img.shields.io/badge/Database-H2-blueviolet)](https://www.h2database.com/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Maintained](https://img.shields.io/badge/Maintained-Yes-success)](https://github.com/shubhyagami/CloudBucket)
-
-A personal cloud storage experience, simplified using Spring Boot.
 
 ## Overview
 
-CloudBucket is a personal cloud storage platform built on top of Spring Boot, designed to provide a secure and user-friendly experience for storing and managing files.
+CloudBucket provides a simple, self‑hosted cloud storage solution powered by Spring Boot and an in‑memory H2 database. It is ideal for developers who want a quick, extensible way to store files locally while learning modern Java web development.
 
 ## Key Features
 
-- Secure authentication
-- User dashboard
-- File management (upload and download up to 500 MB)
-- Configurable local storage
-- H2 database for effortless development
+- **Secure authentication** with password hashing  
+- **User dashboard** for managing files  
+- **File upload/download** (max 500 MB per file)  
+- **Configurable local storage directory** via `file.upload-dir`  
+- **In‑memory H2 database** for development and testing  
+- **Pre‑configured development user** (`admin/admin`)  
 
 ## Getting Started
 
-To start using CloudBucket, follow these simplified setup instructions:
+### Build & Run
 
-### Build and Run
+```bash
+# Build the project
+./mvnw -DskipTests package
 
-1. **Build the Project**: Run `./mvnw -DskipTests package` in the root directory.
-2. **Run the Application**: Execute `./mvnw spring-boot:run`.
-3. **Access the Application**: Visit the following URLs in your browser:
-   - **Signup**: `http://localhost:8080/signup`
-   - **Login**: `http://localhost:8080/login`
-   - **Dashboard**: `http://localhost:8080/dashboard`
-   - **H2 Console**: `http://localhost:8080/h2-console`
+# Run the application
+./mvnw spring-boot:run
+```
+
+### Access
+
+- **Signup**: http://localhost:8080/signup  
+- **Login**: http://localhost:8080/login  
+- **Dashboard**: http://localhost:8080/dashboard  
+- **H2 Console**: http://localhost:8080/h2-console  
 
 ## Configuration
 
-Customize your application settings in `src/main/resources/application.properties`.
+Edit `src/main/resources/application.properties` to customize:
 
-### Default Development User
+- **Default development user**  
+  ```properties
+  app.user.username=admin
+  app.user.password=admin
+  ```
 
-A pre-configured development user is provided:
-
-- **Username**: `admin`
-- **Password**: `admin`
-
-Create a custom user by visiting the signup page.
-
-### File Upload Directory
-
-Customize the local file storage directory by modifying the `file.upload-dir` property in `application.properties`.
+- **File storage location**  
+  ```properties
+  file.upload-dir=/path/to/upload/directory
+  ```
 
 ## Contributing
 
-If you'd like to help improve or expand CloudBucket, please follow these guidelines:
-
-1. **Check existing issues**: Review the issue tracker to avoid duplicate submissions.
-2. **Branching**: Use descriptive branch names for your code contributions.
-3. **Testing**: Include relevant unit tests for new features or bug fixes.
-4. **Pull Requests**: Submit a pull request with style consistency and minimal debug logs.
+1. **Fork** the repository and create a descriptive branch for your work.  
+2. **Run tests** to ensure new code passes existing coverage.  
+3. **Add unit tests** for any new functionality.  
+4. **Submit a Pull Request** with clean code and minimal debug output.  
 
 ## License
 
-CloudBucket is distributed under the MIT License. For further details, refer to the `LICENSE` file.
+CloudBucket is released under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Changelog
 
-No notable changes were made for this version. For the most up-to-date information, please visit the project's GitHub page.
+- **v1.0.0** – Initial release with user management, file upload/download, and H2 integration.  
+- **v1.1.0** – Added configurable storage directory and improved error handling.  
+
+---  
+
+*Built with ❤️ by the CloudBucket maintainer.*
