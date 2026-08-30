@@ -1,7 +1,7 @@
 # CloudBucket
 
 A lightweight, self‑hosted cloud storage service built with Spring Boot.  
-It offers secure authentication, file upload/download (up to 500 MB per file), and a simple dashboard. Ideal for developers who want to experiment with Java web applications and local storage.
+It provides secure authentication, file upload/download (up to 500 MB per file), and a simple dashboard. Ideal for developers who want to experiment with Java web applications and local storage.
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/shubhyagami/CloudBucket)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-blue)](https://spring.io/projects/spring-boot)
@@ -11,7 +11,7 @@ It offers secure authentication, file upload/download (up to 500 MB per file),
 
 ## Overview
 
-CloudBucket is a Spring Boot application that stores files in a configurable local directory and uses an in‑memory H2 database for development. It includes basic user management, a web dashboard, and ready‑to‑run defaults, making it a convenient sandbox for learning modern Java web development.
+CloudBucket is a Spring Boot application that stores files in a configurable local directory and uses an in‑memory H2 database for development. It includes basic user management, a minimalist web dashboard, and sensible defaults, making it a convenient sandbox for learning modern Java web development.
 
 ## Key Features
 
@@ -36,10 +36,10 @@ CloudBucket is a Spring Boot application that stores files in a configurable loc
 
 ### Access the application
 
-- Signup: http://localhost:8080/signup  
-- Login: http://localhost:8080/login  
-- Dashboard: http://localhost:8080/dashboard  
-- H2 console: http://localhost:8080/h2-console  
+- Signup: `http://localhost:8080/signup`  
+- Login: `http://localhost:8080/login`  
+- Dashboard: `http://localhost:8080/dashboard`  
+- H2 console: `http://localhost:8080/h2-console`  
 
 ## Configuration
 
@@ -69,8 +69,8 @@ CloudBucket is released under the MIT License. See the [LICENSE](LICENSE) file f
 
 ## Changelog
 
-- **v1.0.0** – Initial release with user management, file upload/download, and H2 integration.  
 - **v1.1.0** – Added configurable storage directory and improved error handling.  
+- **v1.0.0** – Initial release with user management, file upload/download, and H2 integration.  
 
 ---  
 Maintained with ❤️ by the CloudBucket maintainer.
