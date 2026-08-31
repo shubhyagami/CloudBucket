@@ -1,7 +1,7 @@
 # CloudBucket
 
 A lightweight, self‑hosted cloud storage service built with Spring Boot.  
-It provides secure authentication, file upload/download (up to 500 MB per file), and a simple dashboard. Ideal for developers who want to experiment with Java web applications and local storage.
+It offers secure authentication, file upload/download (up to 500 MB per file), and a minimalist dashboard. Perfect for developers who want a quick sandbox to experiment with Java web applications and local storage.
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/shubhyagami/CloudBucket)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-blue)](https://spring.io/projects/spring-boot)
@@ -11,7 +11,7 @@ It provides secure authentication, file upload/download (up to 500 MB per file
 
 ## Overview
 
-CloudBucket is a Spring Boot application that stores files in a configurable local directory and uses an in‑memory H2 database for development. It includes basic user management, a minimalist web dashboard, and sensible defaults, making it a convenient sandbox for learning modern Java web development.
+CloudBucket is a Spring Boot application that stores files in a configurable local directory and uses an in‑memory H2 database for development. It includes basic user management, a minimalist web dashboard, and sensible defaults, making it a convenient playground for learning modern Java web development.
 
 ## Key Features
 
@@ -59,8 +59,8 @@ Edit `src/main/resources/application.properties` to customize settings.
 ## Contributing
 
 1. Fork the repository and create a descriptive branch for your feature or fix.  
-2. Run the test suite to verify that existing functionality remains intact.  
-3. Add unit tests for any new code you introduce.  
+2. Run the test suite to verify existing functionality.  
+3. Add unit tests for any new code.  
 4. Submit a pull request with clean, well‑documented code and no unnecessary debug output.  
 
 ## License
