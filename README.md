@@ -1,7 +1,7 @@
 # CloudBucket
 
 A lightweight, self‑hosted cloud storage service built with Spring Boot.  
-It provides secure authentication, file upload/download (up to 500 MB per file), and a minimalist dashboard – a quick sandbox for developers experimenting with Java web applications and local storage.
+It offers secure authentication, file upload/download (up to 500 MB per file), and a minimalist dashboard – a handy sandbox for developers building Java web applications that need local storage.
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/shubhyagami/CloudBucket/build.yml?branch=main&label=build&style=flat-square)](https://github.com/shubhyagami/CloudBucket/actions)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-brightgreen?style=flat-square)](https://spring.io/projects/spring-boot)
@@ -14,40 +14,58 @@ It provides secure authentication, file upload/download (up to 500 MB per file
 
 1. [Overview](#overview)
 2. [Key Features](#key-features)
-3. [Getting Started](#getting-started)
-   - [Build & Run](#build--run)
-   - [Access URLs](#access-urls)
-4. [Configuration](#configuration)
-5. [Running Tests](#running-tests)
-6. [Contributing](#contributing)
-7. [License](#license)
-8. [Changelog](#changelog)
+3. [Quick Start](#quick-start)
+4. [Getting Started](#getting-started)
+   * [Build & Run](#build--run)
+   * [Docker](#docker)
+   * [Access URLs](#access-urls)
+5. [Configuration](#configuration)
+6. [Running Tests](#running-tests)
+7. [Contributing](#contributing)
+8. [License](#license)
+9. [Changelog](#changelog)
 
 ---
 
 ## Overview
 
-CloudBucket is a Spring Boot application that stores files in a configurable local directory and uses an in‑memory H2 database for development. It includes:
+CloudBucket is a Spring Boot application that stores files in a configurable local directory and uses an in‑memory H2 database by default, ideal for development. Features include:
 
-- Basic user management (signup, login, logout).
-- A web dashboard for file upload, download, and listing.
-- Secure password hashing with BCrypt.
-- A pre‑configured development user (`admin`/`admin`) for quick testing.
-
-The repository is intentionally minimal, making it easy to understand and extend.
+* User management (signup, login, logout) with BCrypt password hashing.
+* Web dashboard for uploading, downloading, and listing files.
+* A pre‑configured development user (`admin`/`admin`) for quick testing.
+* Extensible architecture: swap storage or authentication modules as needed.
 
 ---
 
 ## Key Features
 
-- **Secure authentication** using BCrypt password hashing.
-- **File management**:
-  - Upload, download, and delete files up to 500 MB.
-  - Configurable storage location via `file.upload-dir`.
-- **Dashboard**: Simple, responsive UI for file operations.
-- **Database**: In‑memory H2 for rapid setup; can be swapped with a persistent database.
-- **Base user**: `admin` with password `admin` for development out of the box.
-- **Extensibility**: Plug‑in your own storage and authentication mechanisms.
+| Feature | Description |
+|---------|-------------|
+| **Secure Auth** | BCrypt hashed passwords; session‑based login. |
+| **File Management** | Upload, download, and delete files up to 500 MB; configurable storage location (`file.upload-dir`). |
+| **Dashboard** | Responsive UI for file operations. |
+| **Database** | In‑memory H2 for rapid startup; swap to any JDBC‑compatible DB. |
+| **Extensibility** | Plug‑in custom storage or authentication providers. |
+
+---
+
+## Quick Start
+
+```bash
+# Clone
+git clone https://github.com/shubhyagami/CloudBucket.git
+cd CloudBucket
+
+# Build & run (skipping tests)
+./mvnw -DskipTests package
+./mvnw spring-boot:run
+```
+
+Open your browser at <http://localhost:8080/dashboard> and log in with the default credentials:
+
+* **Username:** `admin`
+* **Password:** `admin`
 
 ---
 
@@ -56,31 +74,44 @@ The repository is intentionally minimal, making it easy to understand and extend
 ### Build & Run
 
 ```bash
-# Build the application (skip tests for a quick build)
-./mvnw -DskipTests package
+# Build the application
+./mvnw clean package -DskipTests
 
-# Run the application
+# Run it
 ./mvnw spring-boot:run
 ```
 
-The default port is **8080**. Adjust if needed with the `server.port` property.
+The default port is `8080`. Change it with the `server.port` property.
+
+### Docker
+
+```bash
+docker build -t cloudbucket .
+docker run -p 8080:8080 \
+  -e APP_USER_USERNAME=admin \
+  -e APP_USER_PASSWORD=admin \
+  -e FILE_UPLOAD_DIR=/data/uploads \
+  cloudbucket
+```
+
+The container will expose the same endpoints on port `8080`.
 
 ### Access URLs
 
-| Feature          | URL                                   |
-|------------------|---------------------------------------|
-| Signup           | `http://localhost:8080/signup`        |
-| Login            | `http://localhost:8080/login`         |
-| Dashboard        | `http://localhost:8080/dashboard`      |
-| H2 Console       | `http://localhost:8080/h2-console`     |
+| Feature          | URL                              |
+|------------------|----------------------------------|
+| Signup           | `http://localhost:8080/signup`   |
+| Login            | `http://localhost:8080/login`    |
+| Dashboard        | `http://localhost:8080/dashboard` |
+| H2 Console (dev) | `http://localhost:8080/h2-console`|
 
-> **Tip**: The H2 console is enabled only in the `dev` profile. Use `-Dspring.profiles.active=dev` to activate it.
+> **Tip:** The H2 console is only enabled in the `dev` profile. Activate it with `-Dspring.profiles.active=dev`.
 
 ---
 
 ## Configuration
 
-Edit `src/main/resources/application.properties` (or provide environment variables) to fine‑tune behavior.
+Edit `src/main/resources/application.properties` or provide environment variables to override defaults.
 
 ```properties
 # Development user (overridden by env vars)
@@ -88,63 +119,74 @@ app.user.username=admin
 app.user.password=admin
 
 # File storage location
-file.upload-dir=/var/cloudbucket/uploads
+file.upload-dir=${FILE_UPLOAD_DIR:/var/cloudbucket/uploads}
 
-# Spring Boot settings
+# Server
 server.port=8080
+
+# H2 console (only in dev)
 spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
 ```
 
-**Environment‑variable overrides** (e.g., `APP_USER_USERNAME`, `FILE_UPLOAD_DIR`).  
-Use `docker run` or a CI/CD pipeline to provide these.
+| Property | Description | Defaults |
+|----------|-------------|----------|
+| `app.user.username` | Default username | `admin` |
+| `app.user.password` | Default password | `admin` |
+| `file.upload-dir` | Directory to store uploaded files | `/var/cloudbucket/uploads` |
+| `server.port` | HTTP port | `8080` |
+
+Environment‑variable overrides are automatically mapped:
+
+| Variable | Maps to |
+|----------|--------|
+| `APP_USER_USERNAME` | `app.user.username` |
+| `APP_USER_PASSWORD` | `app.user.password` |
+| `FILE_UPLOAD_DIR` | `file.upload-dir` |
 
 ---
 
 ## Running Tests
 
-All functional and unit tests use the H2 in‑memory database.
-
 ```bash
-# Run the full test suite
 ./mvnw test
 ```
 
-The test coverage is logged in the `target/site/` folder.
+All tests use the in‑memory H2 database. Coverage reports are generated in `target/site/`.
 
 ---
 
 ## Contributing
 
-1. **Fork** the repository and create a descriptive branch.
-2. **Read** the Javadoc and comments in the codebase.
-3. **Run** the test suite locally (`./mvnw test`) to confirm baseline functionality.
-4. **Add** tests for any new or changed behavior.
-5. **Push** and submit a pull request with a concise description.
+1. Fork the repo and create a descriptive branch.
+2. Read the Javadoc and inline comments.
+3. Run `./mvnw test` to confirm current behavior.
+4. Add or update tests for new changes.
+5. Push and open a pull request with a clear description.
 
 ### Code Style
 
-- Follow the established Java and Spring conventions.
-- Document public APIs with Javadoc.
-- Avoid printing debug information to the console.
+* Follow standard Java and Spring conventions.
+* Use Javadoc for public APIs.
+* Keep console output clean; use logging instead.
 
 ---
 
 ## License
 
-CloudBucket is released under the [MIT License](LICENSE).
+CloudBucket is distributed under the [MIT License](LICENSE).
 
 ---
 
 ## Changelog
 
 ### v1.1.0
-- Added configurable upload directory (`file.upload-dir`).
-- Improved error handling for invalid file uploads.
+
+* Added `file.upload-dir` property for configurable storage.
+* Improved error handling for oversized uploads.
 
 ### v1.0.0
-- Initial release: user management, file upload/download, H2 integration, dashboard.
+
+* Initial release: user management, file upload/download, H2 integration, dashboard.
 
 ---
-
-> Maintained with ❤️ by the CloudBucket maintainer.
