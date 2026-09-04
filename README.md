@@ -1,7 +1,10 @@
 # CloudBucket
 
-CloudBucket is a lightweight, self‑hosted cloud‑storage solution built on Spring Boot.  
-It offers secure session‑based authentication, upload/download of files up to 500 MB, a responsive dashboard, and a simple local file‑system backend, making it ideal for developers who need local storage while building Java web applications.
+CloudBucket is a lightweight, self‑hosted cloud‑storage solution built with Spring Boot 3.  
+It provides secure session‑based authentication, a responsive dashboard, and a simple file‑system backend, making it a quick way to add file management to any Java web application.
+
+> **Default credentials** – `admin` / `admin`.  
+> Override them with environment variables or configuration properties.
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/shubhyagami/CloudBucket/build.yml?branch=main&label=build&style=flat-square)](https://github.com/shubhyagami/CloudBucket/actions)
 [![Java 21](https://img.shields.io/badge/Java-21-orange?style=flat-square)](https://www.oracle.com/java/)
@@ -16,7 +19,7 @@ It offers secure session‑based authentication, upload/download of files up to 
 - [Key Features](#key-features)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-  - [Build & Run](#build--run)
+  - [Build and Run](#build-and-run)
   - [Docker](#docker)
   - [Access URLs](#access-urls)
 - [Configuration](#configuration)
@@ -29,24 +32,25 @@ It offers secure session‑based authentication, upload/download of files up to 
 
 ## Overview
 
-CloudBucket stores files in a local directory and uses an in‑memory H2 database by default. It ships with:
+CloudBucket stores uploaded files in a configurable local directory and keeps metadata in an H2 database by default. The application ships with:
 
-- User management (signup, login, logout) backed by BCrypt password hashing.
-- A responsive web dashboard for uploading, downloading, and deleting files.
-- A pre‑configured development user (`admin`/`admin`) for immediate experimentation.
-- An extensible design that lets you replace the storage or authentication module easily.
+- **User management** – Sign‑up, login, logout using BCrypt‑hashed passwords.
+- **Dashboard** – Web UI for easy file upload, download and delete.
+- **Development convenience** – A pre‑configured `admin/admin` account and an `dev` profile that enables the H2 console.
+- **Extensibility** – Replace the storage or authentication layers with custom implementations without changing the core logic.
 
 ---
 
 ## Key Features
 
 | Feature | Description |
-|---------|-------------|
-| **Secure Auth** | Session‑based login with BCrypt‑hashed passwords. |
-| **File Management** | Upload, download, and delete files up to 500 MB. |
-| **Dashboard** | User‑friendly UI for file operations. |
-| **Database** | In‑memory H2 in `dev` profile; swap with any JDBC database. |
-| **Extensibility** | Plug in custom storage or auth providers. |
+|---------|--------------|
+| **Secure Auth** | Session‑based login with BCrypt hashing. |
+| **File Operations** | Upload, download, and delete files up to 500 MB. |
+| **Web Dashboard** | Intuitive interface for file management. |
+| **Local Storage** | Files are saved under a directory you specify. |
+| **Database** | In‑memory H2 for development; any JDBC database can be plugged in. |
+| **Extensibility** | Swap storage or auth providers via Spring beans. |
 
 ---
 
@@ -54,14 +58,14 @@ CloudBucket stores files in a local directory and uses an in‑memory H2 databas
 
 ### Prerequisites
 
-- Java 21 (or newer LTS)
-- Maven (or the bundled `mvnw` wrapper)
-- Docker (optional, for containerized deployment)
+- **Java 21** (or newer LTS) – <https://www.oracle.com/java/>
+- **Maven** (or the bundled `mvnw` wrapper)
+- **Docker** (optional, for containerized deployment)
 
-### Build & Run
+### Build and Run
 
 ```bash
-# Clone the repository
+# Clone the repo
 git clone https://github.com/shubhyagami/CloudBucket.git
 cd CloudBucket
 
@@ -72,7 +76,7 @@ cd CloudBucket
 ./mvnw spring-boot:run
 ```
 
-The service listens on port 8080 by default. Open <http://localhost:8080/dashboard> and log in with:
+The service starts on port **8080**. Open <http://localhost:8080/dashboard> and log in with:
 
 - **Username**: `admin`
 - **Password**: `admin`
@@ -89,7 +93,7 @@ docker run -d \
   cloudbucket
 ```
 
-The container exposes the same endpoints on port 8080.
+The container mounts the specified upload directory and exposes all endpoints on port 8080.
 
 ### Access URLs
 
@@ -98,28 +102,29 @@ The container exposes the same endpoints on port 8080.
 | Sign‑up | <http://localhost:8080/signup> |
 | Log‑in | <http://localhost:8080/login> |
 | Dashboard | <http://localhost:8080/dashboard> |
-| H2 Console (dev only) | <http://localhost:8080/h2-console> |
+| H2 Console *(dev only)* | <http://localhost:8080/h2-console> |
 
-> The H2 console can be enabled in the `dev` profile with `-Dspring.profiles.active=dev`.
+> Enable the H2 console in the `dev` profile:  
+> `./mvnw spring-boot:run -Dspring.profiles.active=dev`
 
 ---
 
 ## Configuration
 
-Edit `src/main/resources/application.properties` or override settings with environment variables:
+Edit `src/main/resources/application.properties` or override any setting with an environment variable.
 
 ```properties
-## Development user (overridden by env vars)
+# Default user (overridden by env vars)
 app.user.username=admin
 app.user.password=admin
 
-## File storage location
+# File storage location
 file.upload-dir=${FILE_UPLOAD_DIR:/var/cloudbucket/uploads}
 
-## Server port
+# Server port
 server.port=8080
 
-## H2 console (only in dev)
+# H2 console (only in dev)
 spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
 ```
@@ -131,7 +136,7 @@ spring.h2.console.path=/h2-console
 | `file.upload-dir` | Directory for uploaded files | `/var/cloudbucket/uploads` |
 | `server.port` | HTTP port | `8080` |
 
-Environment variables that map to the properties:
+**Environment variables**
 
 | Variable | Property |
 |----------|----------|
@@ -147,38 +152,38 @@ Environment variables that map to the properties:
 ./mvnw test
 ```
 
-All tests use the in‑memory H2 database. Coverage reports are available in `target/site/`.
+All tests use the in‑memory H2 database. Coverage reports can be found in `target/site/`.
 
 ---
 
 ## Contributing
 
-1. Fork the repository and create a descriptive branch.  
+1. Fork the repository and create a feature branch.  
 2. Run the existing tests: `./mvnw test`.  
 3. Add or update tests for any new or modified functionality.  
 4. Submit a pull request with a clear description of the changes.
 
-**Code style guidelines**
+**Style guide**
 
 - Follow standard Java and Spring conventions.  
 - Document public APIs with Javadoc.  
-- Use the logging framework instead of `System.out`.
+- Use the SLF4J logging framework instead of `System.out`.
 
 ---
 
 ## License
 
-CloudBucket is distributed under the MIT License. See the [LICENSE](LICENSE) file for details.
+CloudBucket is released under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
 ## Changelog
 
-### v1.1.0
+### v1.1.0 – 2026‑09‑04
 
 - Added `file.upload-dir` property for configurable storage.  
 - Improved error handling for oversized uploads.
 
-### v1.0.0
+### v1.0.0 – 2024‑01‑10
 
 - Initial release: user management, file upload/download, H2 integration, dashboard.
