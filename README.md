@@ -20,7 +20,7 @@ It supplies session‑based authentication, a responsive file‑management UI, a
 CloudBucket is a Spring Boot starter that provides:
 
 * **Session‑based login** with BCrypt‑hashed passwords.
-* A **responsive dashboard** at `/dashboard` for file upload, download, and deletion (max 500 MB).
+* A **responsive dashboard** at `/dashboard` for uploading, downloading, and deleting files (≤ 500 MB).
 * **Local filesystem storage** (configurable path).
 * Optional **user registration** at `/signup`.
 * **Persistence**: H2 for quick starts or any JDBC database through Spring Data JPA.
@@ -124,7 +124,7 @@ Environment variables override properties and follow the pattern `PREFIX_PROPERT
 | `/signup`       | Register a new user    |
 | `/login`        | User login             |
 | `/logout`       | User logout             |
-| `/h2-console`  | H2 console (dev only) |
+| `/h2-console`  | H2 console (dev only)  |
 
 ---
 
@@ -155,19 +155,19 @@ Coverage reports are available in `target/site/`.
 
 ---
 
-## License
-
-MIT – see the [LICENSE](LICENSE) file.
-
----
-
 ## Changelog
 
 ### v1.1.0 – 2026‑09‑04
 
-* Introduced `file.upload-dir` property for configurable storage location.  
-* Added error handling for uploads exceeding 500 MB.
+* Added `file.upload-dir` property for configurable storage location.  
+* Introduced error handling for uploads exceeding 500 MB.
 
 ### v1.0.0 – 2024‑01‑10
 
 * Initial release: user management, file upload/download, H2 integration, dashboard.
+
+---
+
+## License
+
+MIT – see the [LICENSE](LICENSE) file.
