@@ -1,80 +1,53 @@
-[K[2m  [2mmodel openai/gpt-oss-20b failed, trying next...[0m[0m
-[K[2m  [2mmodel openai/gpt-oss-120b failed, trying next...[0m[0m
 # CloudBucket
 
-**CloudBucket** is a lightweight, self-hosted cloud storage backend designed for Spring Boot applications. It provides a ready-to-use management dashboard, session-based authentication, and a highly configurable file storage system.
+**CloudBucket** is a lightweight, self‑hosted cloud storage backend for Spring Boot applications. It ships with an admin dashboard, session–based authentication, and a highly configurable file storage system that can be easily integrated into your own projects or deployed as a standalone service.
 
-![Build](https://img.shields.io/github/actions/workflow/status/shubhyagami/CloudBucket/build.yml?branch=main&label=build&style=flat-square)
-![Java](https://img.shields.io/badge/Java-21-orange?style=flat-square)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-brightgreen?style=flat-square)
-![Maven](https://img.shields.io/badge/Maven-3.9.6-brightgreen?style=flat-square)
+![Build Status](https://img.shields.io/github/actions/workflow/status/shubhyagami/CloudBucket/build.yml?branch=main&label=build&style=flat-square)
+![Java 21](https://img.shields.io/badge/Java-21-orange?style=flat-square)
+![Spring Boot 3.4.1](https://img.shields.io/badge/Spring%20Boot-3.4.1-brightgreen?style=flat-square)
+![Maven 3.9.6](https://img.shields.io/badge/Maven-3.9.6-brightgreen?style=flat-square)
 ![Docker Pulls](https://img.shields.io/docker/pulls/shubhyagami/cloudbucket.svg?style=flat-square)
-![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
-
-### Key Features
-- **Built-in Dashboard**: Simple UI for uploading and managing files.
-- **Secure Access**: Session-based authentication with customizable credentials.
-- **Flexible Storage**: Configure where your files are stored on the host system.
-- **Spring Boot Starter**: Easily integrate CloudBucket functionality into your own projects.
-- **Containerized**: Docker support for rapid deployment.
+![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 
 ---
 
-## Table of Contents
-- [Getting Started](#getting-started)
-- [Configuration](#configuration)
-- [API Endpoints](#api-endpoints)
-- [Integration Guide](#integration-guide)
-- [Testing](#testing)
-- [Contributing](#contributing)
-- [Changelog](#changelog)
-- [License](#license)
+## Features
+
+- **Admin Dashboard** – Upload, download, delete and list files via a simple UI.  
+- **Session‑based authentication** – Secure login with configurable credentials.  
+- **Configurable storage** – Store files anywhere on the host system.  
+- **Spring Boot Starter** – Add CloudBucket to your application with a single dependency.  
+- **Container ready** – Docker image included for quick deployment.
 
 ---
 
-## Getting Started
+## Quick Start
 
-### Prerequisites
-| Tool | Minimum Version | Note |
-| :--- | :--- | :--- |
-| **Java** | 21 | Required for runtime and build |
-| **Maven** | 3.9.6 | Or use the provided `./mvnw` wrapper |
-| **Docker** | Latest | Optional (for containerized deployment) |
+The quickest way to get CloudBucket running locally:
 
-### Local Installation
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/shubhyagami/CloudBucket.git
-   cd CloudBucket
-   ```
+```
+git clone https://github.com/shubhyagami/CloudBucket.git
+cd CloudBucket
+./mvnw spring-boot:run
+```
 
-2. **Build the project**
-   ```bash
-   ./mvnw clean package -DskipTests
-   ```
+Open <http://localhost:8080/dashboard> in your browser.  
+Default credentials: `admin` / `admin`.
 
-3. **Run the application**
-   ```bash
-   ./mvnw spring-boot:run
-   ```
+> **Tip** – To use the built‑in H2 console during development, start with the `dev` profile:
 
-Access the dashboard at `http://localhost:8080/dashboard`.  
-**Default Credentials:** `admin` / `admin`
-
-#### Development Mode
-To enable the H2 database console for debugging:
-```bash
+```
 ./mvnw spring-boot:run -Dspring.profiles.active=dev
 ```
 
-### Docker Deployment
-Build and run the container using the following commands:
+---
+
+## Deployment
+
+### Using Docker
 
 ```bash
-# Build the image
 docker build -t cloudbucket .
-
-# Run the container
 docker run -d \
   -p 8080:8080 \
   -e APP_USER_USERNAME=admin \
@@ -83,42 +56,53 @@ docker run -d \
   -v /your/host/path:/data/uploads \
   cloudbucket
 ```
-*Note: The `-v` volume mapping ensures your uploaded files persist across container restarts.*
+
+> The volume mapping keeps uploaded files persistent across container restarts.
+
+### Maven Build
+
+```bash
+./mvnw clean package -DskipTests
+```
+
+The resulting JAR can be run with:
+
+```bash
+java -jar target/cloudbucket-1.1.0.jar
+```
 
 ---
 
 ## Configuration
 
-CloudBucket can be configured via `application.properties`, `application.yml`, or environment variables.
+CloudBucket can be tuned through `application.yml`, `application.properties` or environment variables. Spring Boot automatically maps `property.name` to `PROPERTY_NAME`.
 
-### Property Mapping
-Environment variables follow the standard Spring Boot relaxation rule: `property.name` $\rightarrow$ `PROPERTY_NAME`.
-
-| Property | Env Variable | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `app.user.username` | `APP_USER_USERNAME` | `admin` | Admin login username |
-| `app.user.password` | `APP_USER_PASSWORD` | `admin` | Admin login password |
-| `file.upload-dir` | `FILE_UPLOAD_DIR` | `/var/cloudbucket/uploads` | Path to store uploaded files |
-| `server.port` | `SERVER_PORT` | `8080` | Server HTTP port |
-| `spring.h2.console.enabled`| `SPRING_H2_CONSOLE_ENABLED`| `false` | Enable H2 console (dev profile) |
+| Property                           | Env Variable               | Default                         | Purpose |
+|------------------------------------|----------------------------|---------------------------------|---------|
+| `app.user.username`                | `APP_USER_USERNAME`         | `admin`                         | Admin login username |
+| `app.user.password`                | `APP_USER_PASSWORD`        | `admin`                         | Admin login password |
+| `file.upload-dir`                  | `FILE_UPLOAD_DIR`          | `/var/cloudbucket/uploads`      | Directory where files are stored |
+| `server.port`                      | `SERVER_PORT`              | `8080`                          | HTTP port |
+| `spring.h2.console.enabled`        | `SPRING_H2_CONSOLE_ENABLED`| `false`                         | Enable H2 console (dev only) |
+| `spring.h2.console.path`           | `SPRING_H2_CONSOLE_PATH`   | `/h2-console`                   | Console path |
 
 ---
 
-## API Endpoints
+## API Overview
 
-| Path | Method | Description |
-| :--- | :--- | :--- |
-| `/dashboard` | `GET` | File management UI (Upload/Download) |
-| `/login` | `POST` | Authenticate user session |
-| `/logout` | `POST` | Terminate user session |
-| `/signup` | `POST` | Register a new user (if enabled) |
-| `/h2-console` | `GET` | Database console (Dev profile only) |
+| Path                | Method | Note |
+|---------------------|--------|------|
+| `/dashboard`       | GET    | File management UI |
+| `/login`            | POST   | Authenticate an user |
+| `/logout`           | POST   | Invalidate the session |
+| `/signup`           | POST   | Register a new user (when enabled) |
+| `/h2-console`      | GET    | H2 console (profile: `dev`) |
 
 ---
 
-## Integration Guide
+## Integration as a Dependency
 
-To use CloudBucket as a library in your own Spring Boot project, add the following dependency to your `pom.xml`:
+Add the starter to your Spring Boot app:
 
 ```xml
 <dependency>
@@ -128,51 +112,49 @@ To use CloudBucket as a library in your own Spring Boot project, add the followi
 </dependency>
 ```
 
-**Customization:**  
-You can override the default authentication or storage logic by declaring your own beans of the same type in your application context. The starter will handle the rest of the auto-configuration.
+The starter auto‑configures the dashboard, authentication and storage. Override any bean (e.g., custom `UserDetailsService` or storage service) to change behaviour.
 
 ---
 
-## Testing
-
-The project uses an in-memory H2 database for testing to ensure isolation.
+## Running Tests
 
 ```bash
 ./mvnw test
 ```
-Detailed coverage reports are available in `target/site/` after the test run.
+
+A test coverage report will be available in `target/site/`. All integration tests run against an embedded H2 database for isolation.
 
 ---
 
 ## Contributing
 
-Contributions are welcome! Please follow these steps:
+We welcome contributions! Please follow these steps:
 
-1. Fork the repository and create your feature branch.
-2. Ensure all tests pass by running `./mvnw test`.
-3. Add new tests for any new functionality.
-4. Submit a Pull Request with a clear description of your changes.
+1. Fork the repository and create a feature branch.  
+2. Run `./mvnw test` – all tests must pass.  
+3. Add tests for new or changed functionality.  
+4. Submit a pull request with a clear description.  
 
-### Guidelines
-- Follow standard Java and Spring Boot coding conventions.
-- Use SLF4J for all logging.
-- Document public APIs using Javadoc.
-- Ensure tests remain deterministic.
+### Code Style
+
+- Follow standard Java/Spring Boot conventions.  
+- Use SLF4J for logging.  
+- Document public APIs with Javadoc.  
+- Keep tests deterministic and repeatable.
 
 ---
 
 ## Changelog
 
-### v1.1.0 (2026-09-04)
-- Introduced `file.upload-dir` for configurable storage locations.
-- Added validation and error handling for file uploads exceeding 500MB.
+### 1.1.0 – 2026‑09‑04
+- Added `file.upload-dir` property for custom storage paths.  
+- Added 500 MB upload limit with validation and clear error responses.  
 
-### v1.0.0 (2024-01-10)
-- Initial release.
-- Core features: User management, File I/O, H2 integration, and Admin Dashboard.
+### 1.0.0 – 2024‑01‑10
+- Initial release: user management, file I/O, H2 integration, and admin dashboard.
 
 ---
 
 ## License
 
-Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
+MIT license – see the [LICENSE](LICENSE) file for details.
